@@ -1,32 +1,40 @@
 import { Injectable } from '@nestjs/common'
-import { TaskDto } from './dto/task.dto'
+import { GetTasksDto, TaskDto } from './dto/task.dto'
+import { PrismaService } from 'src/prisma.service'
 
 @Injectable()
 export class TaskService {
-  private TASKS = [
-    {
-      id: 1,
-      title: 'Create a new project',
-      isDone: false,
-    },
-  ]
+  constructor(private prisma: PrismaService) {}
 
-  getAll() {
-    return this.TASKS
-  }
-
-  create(dto: TaskDto) {
-    this.TASKS.push({
-      id: this.TASKS.length + 1,
-      title: dto.title,
-      isDone: false,
+  async getAll(dto: GetTasksDto) {
+    const tasks = await this.prisma.user.findMany({
+      where: {
+        email: dto.email,
+      },
+      select: {
+        tasks: true,
+      },
     })
 
-    return this.TASKS
+    return tasks[0].tasks
   }
 
-  toggleStatus(id: string) {
-    this.TASKS.find((v) => v.id === +id).isDone = true
-    return this.TASKS
+  async create(dto: TaskDto) {
+    const user = await this.prisma.user.findMany({
+      where: {
+        email: dto.userEmail,
+      },
+      select: {
+        id: true,
+      },
+    })
+
+    return await this.prisma.tasks.create({
+      data: {
+        createById: user[0].id,
+        title: dto.title,
+        description: dto.description,
+      },
+    })
   }
 }

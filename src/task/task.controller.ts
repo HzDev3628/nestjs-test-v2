@@ -2,32 +2,25 @@ import {
   Body,
   Controller,
   Get,
-  Param,
-  Patch,
   Post,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common'
 import { TaskService } from './task.service'
-import { TaskDto } from './dto/task.dto'
+import { GetTasksDto, TaskDto } from './dto/task.dto'
 
 @Controller('tasks')
 export class TaskController {
   constructor(private readonly taskService: TaskService) {}
 
   @Get()
-  getAll() {
-    return this.taskService.getAll()
+  getAll(@Body() dto: GetTasksDto) {
+    return this.taskService.getAll(dto)
   }
 
-  @Post()
+  @Post('create')
   @UsePipes(new ValidationPipe())
   create(@Body() dto: TaskDto) {
     return this.taskService.create(dto)
-  } 
-
-  @Patch(':id')
-  toggleStatus(@Param('id') id: string) {
-    return this.taskService.toggleStatus(id)
   }
 }
