@@ -13,6 +13,11 @@ export class TaskDto {
 }
 
 export class GetTasksDto {
-  @IsEmail()
-  email: string
+  @IsNumber()
+  userId: number
+}
+
+export class ChangeStatusOrDelete {
+  @IsNumber()
+  taskId: number
 }

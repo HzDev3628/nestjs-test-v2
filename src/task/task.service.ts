@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common'
-import { GetTasksDto, TaskDto } from './dto/task.dto'
+import { ChangeStatusOrDelete, GetTasksDto, TaskDto } from './dto/task.dto'
 import { PrismaService } from 'src/prisma.service'
 
 @Injectable()
@@ -9,7 +9,7 @@ export class TaskService {
   async getAll(dto: GetTasksDto) {
     const tasks = await this.prisma.user.findMany({
       where: {
-        email: dto.email,
+        id: dto.userId,
       },
       select: {
         tasks: true,
@@ -36,5 +36,26 @@ export class TaskService {
         description: dto.description,
       },
     })
+  }
+
+  async changeStatus(dto: ChangeStatusOrDelete) {
+    return await this.prisma.tasks.update({
+      where: {
+        id: dto.taskId,
+      },
+      data: {
+        isDone: true,
+      },
+    })
+  }
+
+  async delete(dto: ChangeStatusOrDelete) {
+    await this.prisma.tasks.delete({
+      where: {
+        id: dto.taskId,
+      },
+    })
+
+    return { ok: true }
   }
 }
