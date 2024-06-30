@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common'
-import { ChangeStatusOrDelete, GetTasksDto, TaskDto } from './dto/task.dto'
 import { PrismaService } from 'src/prisma.service'
+import { ChangeStatusOrDelete, GetTasksDto, TaskDto } from './dto/task.dto'
 
 @Injectable()
 export class TaskService {
@@ -9,14 +9,14 @@ export class TaskService {
   async getAll(dto: GetTasksDto) {
     const tasks = await this.prisma.user.findMany({
       where: {
-        id: dto.userId,
+        id: Number(dto.userId),
       },
       select: {
         tasks: true,
       },
     })
 
-    return tasks[0].tasks
+    return tasks[0].tasks[0]
   }
 
   async create(dto: TaskDto) {

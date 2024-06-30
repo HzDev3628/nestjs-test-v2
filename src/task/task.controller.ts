@@ -3,12 +3,13 @@ import {
   Controller,
   Delete,
   Get,
+  Param,
   Patch,
   Post,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common'
-import { TaskService } from './task.service'
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
 import {
   ChangeStatusOrDelete,
   DeleteTaskType,
@@ -16,7 +17,7 @@ import {
   TaskDto,
   TasksType,
 } from './dto/task.dto'
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger'
+import { TaskService } from './task.service'
 
 @ApiTags('Tasks')
 @Controller('tasks')
@@ -25,8 +26,8 @@ export class TaskController {
 
   @ApiOperation({ summary: 'Get tasks by some user' })
   @ApiResponse({ status: 200, type: [TasksType] })
-  @Get()
-  getAll(@Body() dto: GetTasksDto) {
+  @Get('/:userId')
+  getAll(@Param() dto: GetTasksDto) {
     return this.taskService.getAll(dto)
   }
 
