@@ -30,7 +30,7 @@ export class GetTasksDto {
   userId: number
 }
 
-export class ChangeStatusOrDelete {
+export class ChangeStatusOrDeleteDto {
   @ApiProperty({
     example: 1,
     description: 'task id',

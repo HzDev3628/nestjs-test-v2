@@ -1,12 +1,13 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { UserCreateDto } from './dto/user-create.dto'
+import { hash } from 'argon2'
 
 @Injectable()
 export class UsersService {
   constructor(private prisma: PrismaService) {}
 
-  async getAll() {
+  async get() {
     return await this.prisma.user.findMany()
   }
 
@@ -31,7 +32,7 @@ export class UsersService {
       data: {
         email: dto.email,
         name: dto.name,
-        password: dto.password,
+        password: await hash(dto.password),
       },
     })
   }

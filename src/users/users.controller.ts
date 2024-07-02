@@ -17,9 +17,10 @@ export class UsersController {
 
   @ApiOperation({ summary: 'Get User' })
   @ApiResponse({ status: 200, type: [UserType] })
+  // @Get(@Body() dto: GetUserDto)
   @Get()
-  async getAll() {
-    return await this.usersService.getAll()
+  async get() {
+    return await this.usersService.get()
   }
 
   @ApiOperation({ summary: 'Create User' })
