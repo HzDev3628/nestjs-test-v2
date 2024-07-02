@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Param,
   Post,
   UsePipes,
   ValidationPipe,
@@ -38,8 +39,8 @@ export class AuthController {
   @ApiOperation({ summary: 'Get new access token' })
   @ApiResponse({ status: 200, type: RefreshTokenResponse })
   @UsePipes(new ValidationPipe())
-  @Post('login/access-token')
-  async getNewAccessToken(@Body() dto: RefreshTokenDto) {
+  @Post('login/:access-token')
+  async getNewAccessToken(@Param() dto: RefreshTokenDto) {
     return this.authService.getNewAccessToken(dto.refreshToken)
   }
 }
