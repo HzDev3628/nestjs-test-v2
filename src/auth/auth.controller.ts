@@ -6,14 +6,9 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common'
-import { AuthService } from './auth.service'
 import { ApiOperation, ApiResponse } from '@nestjs/swagger'
-import {
-  LoginDto,
-  ResponseType,
-  UserCreateDto,
-  UserResponse,
-} from './dto/auth.dto'
+import { AuthService } from './auth.service'
+import { LoginDto, UserCreateDto, UserResponse } from './dto/auth.dto'
 import { RefreshTokenDto, RefreshTokenResponse } from './dto/refresh-token.dto'
 
 @Controller('auth')

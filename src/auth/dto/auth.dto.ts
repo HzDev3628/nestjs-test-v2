@@ -27,17 +27,7 @@ export class UserCreateDto {
   password: string
 }
 
-// {
-//     "user": {
-//         "id": 1,
-//         "name": "Artem v2",
-//         "email": "artem.khar6uk@gmail.com"
-//     },
-//     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5OTUwOTc5LCJleHAiOjE3MTk5NTQ1Nzl9.JwiNppmAN0ikdnHP9soXzH_0Pj82FpL-u595kjUJkow",
-//     "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5OTUwOTc5LCJleHAiOjE3MjA1NTU3Nzl9.MZYLlFTOcs6uHKqua2Paj2MR9VeDBbDi3TVwjKJyH5w"
-// }
-
-export class UserType {
+class UserType {
   @ApiProperty({
     example: 1,
     description: 'user id',
@@ -57,7 +47,7 @@ export class UserType {
   name: string
 }
 
-export class ResponseType {
+class ResponseType {
   @ApiProperty({
     example:
       'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNzE5OTUwOTc5LCJleHAiOjE3MTk5NTQ1Nzl9.JwiNppmAN0ikdnHP9soXzH_0Pj82FpL-u595kjUJkow',
