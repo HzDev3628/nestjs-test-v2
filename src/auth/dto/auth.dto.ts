@@ -11,14 +11,14 @@ export class UserCreateDto {
 
   @ApiProperty({
     example: 'HzDev',
-    description: 'User name',
+    description: 'user name',
   })
   @IsString()
   name: string
 
   @ApiProperty({
     example: 'password321',
-    description: 'password for user',
+    description: 'password for user account',
   })
   @MinLength(4, {
     message: 'Min length need 4 symbol',
@@ -42,7 +42,7 @@ class UserType {
 
   @ApiProperty({
     example: 'HzDev',
-    description: 'User name',
+    description: 'user name',
   })
   name: string
 }
@@ -65,13 +65,13 @@ class ResponseType {
 export class UserResponse {
   @ApiProperty({
     type: UserType,
-    description: 'User data',
+    description: 'user data',
   })
   user: UserType
 
   @ApiProperty({
     type: ResponseType,
-    description: 'Tokens',
+    description: 'tokens',
   })
   tokens: ResponseType
 }
@@ -89,7 +89,7 @@ export class LoginDto {
   })
   @ApiProperty({
     example: 'password321',
-    description: 'password for user',
+    description: 'password for user account',
   })
   @IsString()
   password: string

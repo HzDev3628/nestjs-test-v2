@@ -16,6 +16,7 @@ async function bootstrap() {
   const documentation = SwaggerModule.createDocument(app, config)
   SwaggerModule.setup('api/docs', app, documentation)
 
-  await app.listen(4001)
+  await app.listen(process.env.HOST)
+  console.log('Start server on:', process.env.HOST)
 }
 bootstrap()

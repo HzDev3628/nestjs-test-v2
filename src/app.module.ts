@@ -6,6 +6,10 @@ import { ConfigModule } from '@nestjs/config'
 @Module({
   controllers: [],
   providers: [],
-  imports: [TaskModule, AuthModule, ConfigModule.forRoot()],
+  imports: [
+    ConfigModule.forRoot({ envFilePath: `.env.${process.env.NODE_ENV}` }),
+    TaskModule,
+    AuthModule,
+  ],
 })
 export class AppModule {}

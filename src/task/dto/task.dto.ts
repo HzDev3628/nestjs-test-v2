@@ -10,6 +10,10 @@ export class TaskDto {
   title: string
 
   @IsOptional()
+  @ApiProperty({
+    example: 'You must have account with 10 referral',
+    description: 'description task, optional!',
+  })
   @IsString()
   description?: string
 
@@ -72,7 +76,7 @@ export class TasksType {
 
   @ApiProperty({
     example: '1000 token from Blum',
-    description: 'description task',
+    description: 'description task, optional!',
   })
   @IsOptional()
   description?: string

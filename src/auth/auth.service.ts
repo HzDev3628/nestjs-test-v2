@@ -8,14 +8,14 @@ import { JwtService } from '@nestjs/jwt'
 import { LoginDto, UserCreateDto } from './dto/auth.dto'
 import { PrismaService } from 'src/prisma.service'
 import { hash, verify } from 'argon2'
-import { GetUser } from './get-user'
+import { GetUserService } from './get-user/index.service'
 
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService,
-    private getUser: GetUser,
+    private getUser: GetUserService,
   ) {}
 
   async login(dto: LoginDto) {

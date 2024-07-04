@@ -1,6 +1,6 @@
 import { PrismaService } from 'src/prisma.service'
 
-export class GetUser {
+export class GetUserService {
   constructor(private prisma: PrismaService) {}
 
   async byId(id: number) {
@@ -9,7 +9,7 @@ export class GetUser {
         id,
       },
     })
-  } 
+  }
 
   async byEmail(email: string) {
     return await this.prisma.user.findMany({
