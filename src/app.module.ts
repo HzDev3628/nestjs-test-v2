@@ -7,7 +7,7 @@ import { ConfigModule } from '@nestjs/config'
   controllers: [],
   providers: [],
   imports: [
-    ConfigModule.forRoot({ envFilePath: `.env.${process.env.NODE_ENV}` }),
+    ConfigModule.forRoot({ envFilePath: `.${process.env.NODE_ENV}.env` }),
     TaskModule,
     AuthModule,
   ],
