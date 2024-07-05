@@ -24,14 +24,15 @@ describe('AppController (e2e)', () => {
   })
 
   it('/auth/sign-up (POST)', async () => {
+    const randomName = `HzDev ${Math.random()}`
     const res = await request(app.getHttpServer())
       .post('/api/auth/sign-up')
       .send({
-        email: 'artem.khar9uk@gmail.com',
+        email: `artem.khar${Math.random()}uk@gmail.com`,
         password: 'horor2008',
-        name: 'Artem HzDev 5',
+        name: randomName,
       })
-    expect(res.body.user.name).toBe('Artem HzDev 5')
+    expect(res.body.user.name).toBe(randomName)
     expect(res.statusCode).toBe(201)
   })
 
@@ -51,5 +52,21 @@ describe('AppController (e2e)', () => {
     )
     expect(res.body.user.id).toBe(4)
     expect(res.statusCode).toBe(201)
+  })
+
+  it('/tasks/:userId (GET)', async () => {
+    const res = await request(app.getHttpServer()).get('/api/tasks/4')
+    expect(res.body.length).toBe(27)
+  })
+
+  it('/tasks/create (POST)', async () => {
+    const res = await request(app.getHttpServer())
+      .post('/api/tasks/create')
+      .send({
+        title: `This new task for test ${Math.random()}`,
+        userEmail: 'artem.khar10uk@gmail.com',
+      })
+    expect(res.statusCode).toBe(200)
+    expect(res.body.createById).toBe(5)
   })
 })

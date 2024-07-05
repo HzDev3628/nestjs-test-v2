@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common'
+import { BadRequestException, Injectable } from '@nestjs/common'
 import { PrismaService } from 'src/prisma.service'
 import { ChangeStatusOrDeleteDto, GetTasksDto, TaskDto } from './dto/task.dto'
 
@@ -26,8 +26,12 @@ export class TaskService {
       },
       select: {
         id: true,
+        tasks: true,
       },
     })
+
+    if (user[0].tasks.find((v) => v.title === dto.title))
+      throw new BadRequestException('This task created')
 
     return await this.prisma.tasks.create({
       data: {
