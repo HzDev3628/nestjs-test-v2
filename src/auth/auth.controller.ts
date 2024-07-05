@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Get,
   Param,
   Post,
   UsePipes,
@@ -26,7 +27,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Login user with jwt token' })
   @ApiResponse({ status: 200, type: UserResponse })
   @UsePipes(new ValidationPipe())
-  @Post('login')
+  @Get('login')
   async login(@Body() dto: LoginDto) {
     return this.authService.login(dto)
   }
@@ -34,7 +35,7 @@ export class AuthController {
   @ApiOperation({ summary: 'Get new access token for jwt' })
   @ApiResponse({ status: 200, type: RefreshTokenResponse })
   @UsePipes(new ValidationPipe())
-  @Post('login/:access-token')
+  @Post('access-token/:refreshToken')
   async getNewAccessToken(@Param() dto: RefreshTokenDto) {
     return this.authService.getNewAccessToken(dto.refreshToken)
   }

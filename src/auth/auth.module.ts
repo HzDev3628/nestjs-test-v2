@@ -6,11 +6,10 @@ import { JwtModule } from '@nestjs/jwt'
 import { ConfigModule, ConfigService } from '@nestjs/config'
 import { getJwtConfig } from 'src/config/jwt.config'
 import { JwtStrategy } from './jwt.strategy'
-import { GetUserService } from './get-user/index.service'
 
 @Module({
   controllers: [AuthController],
-  providers: [AuthService, JwtStrategy, PrismaService, GetUserService],
+  providers: [AuthService, JwtStrategy, PrismaService],
   imports: [
     ConfigModule,
     JwtModule.registerAsync({

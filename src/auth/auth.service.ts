@@ -8,14 +8,12 @@ import { JwtService } from '@nestjs/jwt'
 import { LoginDto, UserCreateDto } from './dto/auth.dto'
 import { PrismaService } from 'src/prisma.service'
 import { hash, verify } from 'argon2'
-import { GetUserService } from './get-user/index.service'
 
 @Injectable()
 export class AuthService {
   constructor(
     private prisma: PrismaService,
     private jwt: JwtService,
-    private getUser: GetUserService,
   ) {}
 
   async login(dto: LoginDto) {
@@ -35,7 +33,13 @@ export class AuthService {
   async getNewAccessToken(refreshToken: string) {
     const result = await this.jwt.verifyAsync(refreshToken)
     if (!result) throw new UnauthorizedException('Invalid refresh token')
-    const user = await this.getUser.byId(result.id)
+
+    const user = await this.prisma.user.findUnique({
+      where: {
+        id: result.id,
+      },
+    })
+
     const tokens = await this.issueTokens(user.id)
 
     return {
@@ -50,8 +54,16 @@ export class AuthService {
 
   async create(dto: UserCreateDto) {
     const [isEmailUsed, isNameUsed] = await Promise.all([
-      await this.getUser.byEmail(dto.email),
-      await this.getUser.byName(dto.name),
+      await this.prisma.user.findMany({
+        where: {
+          email: dto.email,
+        },
+      }),
+      await this.prisma.user.findMany({
+        where: {
+          name: dto.name,
+        },
+      }),
     ])
 
     if (isEmailUsed[0] || isNameUsed[0])
@@ -93,7 +105,11 @@ export class AuthService {
   }
 
   private async validationUser(dto: LoginDto) {
-    const user = await this.getUser.byEmail(dto.email)
+    const user = await this.prisma.user.findMany({
+      where: {
+        email: dto.email,
+      },
+    })
 
     if (!user[0]) throw new NotFoundException('User not found')
 
