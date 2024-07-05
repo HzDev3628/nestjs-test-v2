@@ -7,6 +7,11 @@ import { ConfigModule } from '@nestjs/config'
 describe('AppController (e2e)', () => {
   let app: INestApplication
   let access_token = ''
+  let randomName = ''
+
+  beforeAll(async () => {
+    randomName = `HzDev ${Math.random()}`
+  })
 
   beforeEach(async () => {
     const moduleFixture: TestingModule = await Test.createTestingModule({
@@ -24,7 +29,6 @@ describe('AppController (e2e)', () => {
   })
 
   it('/auth/sign-up (POST)', async () => {
-    const randomName = `HzDev ${Math.random()}`
     const res = await request(app.getHttpServer())
       .post('/api/auth/sign-up')
       .send({
