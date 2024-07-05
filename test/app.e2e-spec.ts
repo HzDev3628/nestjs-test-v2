@@ -70,7 +70,7 @@ describe('AppController (e2e)', () => {
         title: `This new task for test ${Math.random()}`,
         userEmail: 'artem.khar10uk@gmail.com',
       })
-    expect(res.statusCode).toBe(200)
+    expect(res.statusCode).toBe(201)
     expect(res.body.createById).toBe(5)
   })
 })
