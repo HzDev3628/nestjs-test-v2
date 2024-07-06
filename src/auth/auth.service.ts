@@ -40,6 +40,8 @@ export class AuthService {
       },
     })
 
+    if (!user) throw new BadRequestException('User not found')
+
     const tokens = await this.issueTokens(user.id)
 
     return {
