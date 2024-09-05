@@ -71,16 +71,13 @@ export class TasksType {
   @ApiProperty({
     example: 'Claim token today on 10 PM',
     description: 'title task',
-  })
-  title: string
-
+  }) title: string
   @ApiProperty({
     example: '1000 token from Blum',
     description: 'description task, optional!',
   })
   @IsOptional()
   description?: string
-
   @ApiProperty({
     example: false,
     description: 'status task',
